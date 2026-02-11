@@ -1,4 +1,4 @@
-# SmartCode AI Review
+# SmartCode- Code Review
 
 ## Project Idea
 SmartCode is an AI-based code review assistant that helps students and developers analyze and improve their code.
@@ -26,6 +26,4 @@ Backend contains:
 
 ## Current Status
 Basic project structure completed.
-Dummy API working.
 Supabase table created.
-AI integration will be added next.
