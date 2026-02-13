@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.95.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "openai": "^6.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3"
+  }
+}
