@@ -37,10 +37,18 @@ ${code_text}
     console.error("AI Service Error:", error);
     // Fallback Mock for testing if API fails or quota exceeded
     return {
-      summary: "AI Service Unavailable - Mock Response",
-      bugs: ["Could not analyze code due to error"],
-      improvements: ["Check API Key", "Check Quota"],
-      rating: 0
+      summary: "⚠️ API Quota Exceeded / Error. Displaying SIMULATED review for demonstration.\n\nThe code structure appears valid. However, proper error handling is recommended for production environments. Consider extracting magic numbers into constants.",
+      bugs: [
+        "Potential memory leak in event listener binding",
+        "Missing validation for 'code_text' input",
+        "Uncaught, unspecified error in catch block"
+      ],
+      improvements: [
+        "Use 'const' for variables that are never reassigned",
+        "Add JSDoc comments for better code documentation",
+        "Implement a retry mechanism for network requests"
+      ],
+      rating: 7
     };
   }
 }

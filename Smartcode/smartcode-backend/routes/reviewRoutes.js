@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const { analyzeCode } = require("../services/aiService");
-const { reviewCode } = require("../controllers/reviewController");
+const { reviewCode, getReviews } = require("../controllers/reviewController");
 
 router.post("/review", reviewCode);
+router.get("/history", getReviews);
 
 router.post("/", async (req, res) => {
   try {

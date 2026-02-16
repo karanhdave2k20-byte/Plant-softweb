@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ReviewHistory from './components/ReviewHistory';
 import './index.css';
 import api from './services/api';
 
@@ -7,6 +8,22 @@ function App() {
     const [review, setReview] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [history, setHistory] = useState([]);
+
+    useEffect(() => {
+        fetchHistory();
+    }, []);
+
+    const fetchHistory = async () => {
+        try {
+            const response = await api.get('/history');
+            if (response.data.success) {
+                setHistory(response.data.data);
+            }
+        } catch (err) {
+            console.error("Failed to fetch history", err);
+        }
+    };
 
     const handleReview = async () => {
         if (!code.trim()) return;
@@ -19,6 +36,7 @@ function App() {
             const response = await api.post('/review', { code_text: code });
             if (response.data.success) {
                 setReview(response.data.data);
+                fetchHistory(); // Refresh history after new review
             } else {
                 setError(response.data.message || 'Review failed');
             }
@@ -47,7 +65,7 @@ function App() {
                         onClick={handleReview}
                         disabled={loading || !code.trim()}
                     >
-                        {loading ? 'Analyzing...' : 'Review Code'}
+                        {loading ? <span className="loader">Analyzing...</span> : 'Review Code'}
                     </button>
                 </section>
 
@@ -79,8 +97,10 @@ function App() {
                         </div>
                     </section>
                 )}
+
+                <ReviewHistory history={history} />
             </main>
-        </div>
+        </div >
     );
 }
 

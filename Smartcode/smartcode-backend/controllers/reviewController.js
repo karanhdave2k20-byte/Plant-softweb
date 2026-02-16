@@ -6,10 +6,17 @@ exports.reviewCode = async (req, res) => {
     const { code_text } = req.body;
 
     // 1. Validate Input
-    if (!code_text || typeof code_text !== "string" || code_text.trim().length === 0) {
+    if (!code_text) {
       return res.status(400).json({
         success: false,
-        message: "Valid code_text is required"
+        message: "Code input cannot be empty"
+      });
+    }
+
+    if (typeof code_text !== "string" || code_text.trim().length < 10) {
+      return res.status(400).json({
+        success: false,
+        message: "Code is too short (minimum 10 characters)"
       });
     }
 
@@ -55,5 +62,24 @@ exports.reviewCode = async (req, res) => {
       success: false,
       message: "Internal Server Error"
     });
+  }
+};
+exports.getReviews = async (req, res, next) => {
+  try {
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    res.status(200).json({
+      success: true,
+      data: data
+    });
+  } catch (error) {
+    next(error);
   }
 };
